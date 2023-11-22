@@ -24,7 +24,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        // Detta är API endpoint där vi hämtar alla hundar ifrån MockDatabase
+        // Denna API endpoint hämtas alla hundar ifrån MockDatabase
         [HttpGet]
         [Route("getAllDogs")]
         public async Task<IActionResult> GetAllDogs()
@@ -32,7 +32,7 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new GetAllDogsQuery()));
         }
 
-        // GET api/<DogsController>/5
+        // GET api/<DogsController>
         [HttpGet]
         [Route("getDogById/{dogId}")]
         public async Task<IActionResult> GetDogById(Guid dogId)
@@ -48,15 +48,15 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new CreateDogCommand(newDog)));
         }
 
-        // PUT api/<DogsController>/5
+        // PUT api/<DogsController>
         [HttpPut]
-        [Route("updateDog/{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Route("updateDog/{updatedDogId}")]
+        public async Task<IActionResult> UpdateDog([FromBody] DogDto updatedDog, Guid updatedDogId)
         {
-            throw new NotImplementedException();
+            return Ok(await _mediator.Send(new UpdateDogByIdCommand(updatedDog, updatedDogId)));
         }
 
-        // DELETE api/<DogsController>/5
+        // DELETE api/<DogsController>
         [HttpDelete]
         [Route("deleteDog/{id}")]
         public void Delete(int id)
