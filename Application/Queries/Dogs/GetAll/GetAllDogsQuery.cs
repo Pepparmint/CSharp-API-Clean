@@ -7,10 +7,10 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Queries.Dogs
+namespace Application.Queries.Dogs.GetAll
 {
     public class GetAllDogsQuery : IRequest<List<Dog>>
     {
-        
+
     }
 }

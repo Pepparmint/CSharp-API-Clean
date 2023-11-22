@@ -17,26 +17,12 @@ namespace Infrastructure.Database
 
         private static List<Dog> allDogsFromMockDatabase = new()
         {
-            new Dog
-            {
-                animalId = Guid.NewGuid(), Name = "God King Tobias"
-            },
-            new Dog
-            {
-                animalId = Guid.NewGuid(), Name = "Sussy Borkdog"
-            },
-            new Dog
-            {
-                animalId = Guid.NewGuid(), Name = "BorkLady"
-            },
-            new Dog
-            {
-                animalId = Guid.NewGuid(), Name = "Max The Dward Pincher"
-            },
-            new Dog
-            {
-                animalId = Guid.NewGuid(), Name = "Dawg Bojan"
-            },
+            new Dog{animalId = Guid.NewGuid(), Name = "God King Tobias"},
+            new Dog{animalId = Guid.NewGuid(), Name = "Sussy Borkdog"},
+            new Dog{animalId = Guid.NewGuid(), Name = "BorkLady"},
+            new Dog{animalId = Guid.NewGuid(), Name = "Max The Dward Pincher"},
+            new Dog{animalId = Guid.NewGuid(), Name = "Dawg Bojan"},
+            new Dog { animalId = new Guid("12345678-1234-5678-1234-567812345678"), Name = "TestDogForUnitTests"}
         };
     }
 }

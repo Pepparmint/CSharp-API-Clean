@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Database;
 
-namespace Application.Queries.Dogs
+namespace Application.Queries.Dogs.GetAll
 {
     internal class GetAllDogsQueryHandler : IRequestHandler<GetAllDogsQuery, List<Dog>>
     {
