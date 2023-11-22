@@ -1,8 +1,12 @@
 ﻿using Infrastructure.Database;
 using MediatR;
-using Application.Queries.Dogs;
+using Application.Queries.Dogs.GetAll;
 using Application.Queries.Dogs.GetDogById;
+using Application.Commands.Dogs.CreateDog;
+using Application.Commands.Dogs.UpdateDog;
+using Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 // CQRS - Command Query Responsibility Segratation
@@ -39,9 +43,9 @@ namespace API.Controllers
         // POST api/<DogsController>
         [HttpPost]
         [Route("createNewDog")]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateDog([FromBody] DogDto newDog)
         {
-            throw new NotImplementedException();
+            return Ok(await _mediator.Send(new CreateDogCommand(newDog)));
         }
 
         // PUT api/<DogsController>/5
