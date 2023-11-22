@@ -18,7 +18,6 @@ namespace Application.Commands.Dogs.CreateDog
         {
             _mockDatabase = mockDatabase;
         }
-
         public Task<Dog> Handle(CreateDogCommand request, CancellationToken cancellationToken)
         {
             Dog dogToCreate = new()

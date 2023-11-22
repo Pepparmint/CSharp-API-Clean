@@ -15,7 +15,6 @@ namespace Application.Commands.Dogs.CreateDog
         {
             NewDog = newDog;
         }
-
         public DogDto NewDog { get; }
     }
 }
