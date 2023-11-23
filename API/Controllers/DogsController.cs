@@ -4,6 +4,7 @@ using Application.Queries.Dogs.GetAll;
 using Application.Queries.Dogs.GetDogById;
 using Application.Commands.Dogs.CreateDog;
 using Application.Commands.Dogs.UpdateDog;
+using Application.Commands.Dogs.DeleteDog;
 using Application.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        // Denna API endpoint hämtas alla hundar ifrån MockDatabase
+        // GET - Denna API endpoint hämtas alla hundar ifrån MockDatabase
         [HttpGet]
         [Route("getAllDogs")]
         public async Task<IActionResult> GetAllDogs()
@@ -32,7 +33,7 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new GetAllDogsQuery()));
         }
 
-        // GET api/<DogsController>
+        // GET - Denna API endpoint kollar ID
         [HttpGet]
         [Route("getDogById/{dogId}")]
         public async Task<IActionResult> GetDogById(Guid dogId)
@@ -40,7 +41,7 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new GetDogByIdQuery(dogId)));
         }
 
-        // POST api/<DogsController>
+        // POST - Denna skapar ny Dog
         [HttpPost]
         [Route("createNewDog")]
         public async Task<IActionResult> CreateDog([FromBody] DogDto newDog)
@@ -48,7 +49,7 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new CreateDogCommand(newDog)));
         }
 
-        // PUT api/<DogsController>
+        // PUT - Denna ändrar Namn via ID
         [HttpPut]
         [Route("updateDog/{updatedDogId}")]
         public async Task<IActionResult> UpdateDog([FromBody] DogDto updatedDog, Guid updatedDogId)
@@ -56,12 +57,13 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new UpdateDogByIdCommand(updatedDog, updatedDogId)));
         }
 
-        // DELETE api/<DogsController>
+        // DELETE - Denna tar bort Dog via ID
         [HttpDelete]
-        [Route("deleteDog/{id}")]
-        public void Delete(int id)
+        [Route("deleteDog/{animalId}")]
+        public async Task<IActionResult> DeleteDog(Guid animalId)
         {
-            throw new NotImplementedException();
+            await _mediator.Send(new DeleteDogCommand(animalId));
+            return Ok();
         }
     }
 }
