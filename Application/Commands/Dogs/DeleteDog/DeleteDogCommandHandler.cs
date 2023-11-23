@@ -19,7 +19,7 @@ namespace Application.Commands.Dogs.DeleteDog
         }
         public Task<Unit> Handle(DeleteDogCommand request, CancellationToken cancellationToken)
         {
-            // Find and remove the dog from the database
+            // Find and remove the dog from the database with the ID
             Dog dogToDelete = _mockDatabase.allDogs.FirstOrDefault(dog => dog.animalId == request.AnimalId)!;
 
             if (dogToDelete != null)

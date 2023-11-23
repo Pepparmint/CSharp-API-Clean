@@ -14,8 +14,9 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    [Route("api/v1/[controller]")]
     [ApiController]
+    [Route("api/v1/[controller]")]
+    [RequireHttps] // This enforces HTTPS for all actions in this controller
     public class DogsController : ControllerBase
     {
         internal readonly IMediator _mediator;

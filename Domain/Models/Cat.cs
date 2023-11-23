@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Domain.Models
 {
-    public class Dog : Animal
+    public class Cat : Animal
     {
         public override string Ability()
         {
-            return "This animal can bark at Bojan";
+            return "This animal can purr";
         }
     }
 }

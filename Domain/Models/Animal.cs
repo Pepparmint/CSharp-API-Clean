@@ -9,7 +9,10 @@ namespace Domain.Models
     public class Animal
     {
         public Guid animalId { get; set; }
-
         public string Name { get; set; } = string.Empty;
+        public virtual string Ability()
+        {
+            return "Generic animal ability";
+        }
     }
 }
