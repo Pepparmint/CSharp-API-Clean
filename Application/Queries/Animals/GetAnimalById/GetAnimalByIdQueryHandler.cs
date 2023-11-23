@@ -1,14 +1,13 @@
 ﻿using Domain.Models;
 using Infrastructure.Database;
 using MediatR;
-using Application.Queries.Animals.GetAnimalById;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Queries.Animals.GetCatById
+namespace Application.Queries.Animals.GetAnimalById
 {
     public class GetAnimalByIdQueryHandler : IRequestHandler<GetAnimalByIdQuery, Animal>
     {

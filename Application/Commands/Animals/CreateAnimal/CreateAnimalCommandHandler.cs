@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Animals.CreateAnimal
 {
-    internal sealed class CreateAnimalCommandHandler : IRequestHandler<CreateAnimalCommand, Animal>
+    public sealed class CreateAnimalCommandHandler : IRequestHandler<CreateAnimalCommand, Animal>
     {
         private readonly MockDatabase _mockDatabase;
 

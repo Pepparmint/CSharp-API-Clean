@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Animals.UpdateAnimal
 {
-    internal class UpdateAnimalByIdCommandHandler : IRequestHandler<UpdateAnimalByIdCommand, Animal>
+    public class UpdateAnimalByIdCommandHandler : IRequestHandler<UpdateAnimalByIdCommand, Animal>
     {
         private readonly MockDatabase _mockDatabase;
 

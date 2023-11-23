@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Commands.Animals.DeleteAnimal
 {
-    internal class DeleteAnimalCommandHandler : IRequestHandler<DeleteAnimalCommand, Unit>
+    public class DeleteAnimalCommandHandler : IRequestHandler<DeleteAnimalCommand, Unit>
     {
         private readonly MockDatabase _mockDatabase;
 

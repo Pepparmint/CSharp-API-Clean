@@ -23,7 +23,7 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
-        // GET - Denna API endpoint hämtar alla djur från MockDatabase
+        // GET - Denna endpoint hämtar alla djur från MockDatabase
         [HttpGet]
         [Route("getAllAnimals")]
         public async Task<IActionResult> GetAllAnimals()
@@ -31,7 +31,7 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new GetAllAnimalsQuery()));
         }
 
-        // GET - Denna API endpoint kollar ID för alla djur
+        // GET - Denna kollar ID för alla djur
         [HttpGet]
         [Route("getAnimalById/{animalId}")]
         public async Task<IActionResult> GetAnimalById(Guid animalId)
@@ -47,7 +47,7 @@ namespace API.Controllers
             return Ok(await _mediator.Send(new CreateAnimalCommand(newAnimal)));
         }
 
-        // PUT - This updates the name via ID for any animal
+        // PUT - Denna uppdaterar Namn via ID
         [HttpPut]
         [Route("updateAnimal")]
         public async Task<IActionResult> UpdateAnimal([FromBody] AnimalDto updatedAnimal, Guid animalId)
