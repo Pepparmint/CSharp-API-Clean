@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Application.Dtos
 {
-    public class DogDto
+    public class AnimalDto
     {
         public string Name { get; set; } = string.Empty;
+        public string Type { get; set; } = string.Empty;
     }
 }

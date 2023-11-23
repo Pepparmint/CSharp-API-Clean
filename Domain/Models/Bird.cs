@@ -8,9 +8,7 @@ namespace Domain.Models
 {
     public class Bird : Animal
     {
-        public override string Ability()
-        {
-            return "This animal can fly";
-        }
+        public override string Type => "Bird";
+        public override string Ability => "This animal can fly ";
     }
 }

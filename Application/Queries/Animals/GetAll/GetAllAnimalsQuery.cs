@@ -7,9 +7,9 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Queries.Dogs.GetAll
+namespace Application.Queries.Animals.GetAll
 {
-    public class GetAllDogsQuery : IRequest<List<Dog>>
+    public class GetAllAnimalsQuery : IRequest<List<Animal>>
     {
 
     }

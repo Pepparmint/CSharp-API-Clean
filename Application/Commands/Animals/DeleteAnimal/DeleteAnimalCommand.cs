@@ -1,18 +1,17 @@
-﻿using Domain.Models;
-using MediatR;
+﻿using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Commands.Dogs.DeleteDog
+namespace Application.Commands.Animals.DeleteAnimal
 {
-    public class DeleteDogCommand : IRequest<Unit>
+    public class DeleteAnimalCommand : IRequest<Unit>
     {
         public Guid AnimalId { get; set; }
 
-        public DeleteDogCommand(Guid animalId)
+        public DeleteAnimalCommand(Guid animalId)
         {
             AnimalId = animalId;
         }
