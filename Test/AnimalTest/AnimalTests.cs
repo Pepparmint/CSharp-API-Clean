@@ -11,6 +11,7 @@ using Application.Dtos;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
 using Domain.Models;
+using Application.Queries.Animals.GetAll;
 
 
 [assembly: InternalsVisibleTo("AnimalTests.cs")]
@@ -25,6 +26,7 @@ namespace Test.AnimalTest
         private DeleteAnimalCommandHandler _deleteHandler;
         private UpdateAnimalByIdCommandHandler _updateHandler;
         private GetAnimalByIdQueryHandler _getByIdHandler;
+        private GetAllAnimalsQueryHandler _getAllHandler;
         private MockDatabase _mockDatabase;
 
         [SetUp]
@@ -36,6 +38,7 @@ namespace Test.AnimalTest
             _updateHandler = new UpdateAnimalByIdCommandHandler(_mockDatabase);
             _deleteHandler = new DeleteAnimalCommandHandler(_mockDatabase);
             _getByIdHandler = new GetAnimalByIdQueryHandler(_mockDatabase);
+            _getAllHandler = new GetAllAnimalsQueryHandler(_mockDatabase);
         }
 
         [Test]
@@ -80,6 +83,21 @@ namespace Test.AnimalTest
 
             // Assert
             Assert.Null(animalAfterDeletion);
+        }
+        [Test]
+        public async Task GetAllAnimals_ReturnsAllAnimals()
+        {
+            // Arrange - Assuming you have some animals in your mock database
+            var expectedAnimalCount = _mockDatabase.allAnimals.Count;
+            var query = new GetAllAnimalsQuery();
+
+            // Act
+            var allAnimals = await _getAllHandler.Handle(query, CancellationToken.None);
+
+            // Assert
+            Assert.NotNull(allAnimals);
+            Assert.AreEqual(expectedAnimalCount, allAnimals.Count);
+            // Add more assertions if needed based on the properties you expect from the animals.
         }
 
         [Test]

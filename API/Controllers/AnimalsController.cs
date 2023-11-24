@@ -49,7 +49,7 @@ namespace API.Controllers
 
         // PUT - Denna uppdaterar Namn via ID
         [HttpPut]
-        [Route("updateAnimal")]
+        [Route("updateAnimal/{animalId}")]
         public async Task<IActionResult> UpdateAnimal([FromBody] AnimalDto updatedAnimal, Guid animalId)
         {
             return Ok(await _mediator.Send(new UpdateAnimalByIdCommand(updatedAnimal, animalId)));

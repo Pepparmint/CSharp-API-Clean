@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Queries.Animals.GetAll
 {
-    internal class GetAllAnimalsQueryHandler : IRequestHandler<GetAllAnimalsQuery, List<Animal>>
+    public class GetAllAnimalsQueryHandler : IRequestHandler<GetAllAnimalsQuery, List<Animal>>
     {
         private readonly MockDatabase _mockDatabase;
 

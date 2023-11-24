@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Application.Queries.Animals.GetAll;
+using Domain.Models;
 using Infrastructure.Database;
 using MediatR;
 using System;
@@ -21,6 +22,11 @@ namespace Application.Queries.Animals.GetAnimalById
         {
             Animal findAnimal = _mockDatabase.allAnimals.Where(Animal => Animal.animalId == request.Id).FirstOrDefault()!;
             return Task.FromResult(findAnimal);
+        }
+
+        public static implicit operator GetAnimalByIdQueryHandler(GetAllAnimalsQueryHandler v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
