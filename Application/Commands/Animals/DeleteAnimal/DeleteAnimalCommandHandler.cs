@@ -19,24 +19,17 @@ namespace Application.Commands.Animals.DeleteAnimal
         }
         public Task<Unit> Handle(DeleteAnimalCommand request, CancellationToken cancellationToken)
         {
-            // Find and remove the dog from the database with the ID
+            // Find and remove the animal from the database with the ID
             Animal animalToDelete = _mockDatabase.allAnimals.FirstOrDefault(animal => animal.animalId == request.AnimalId)!;
-
 
             if (animalToDelete != null)
             {
                 // Determine the type of the animal and remove it from the appropriate list
-                if (animalToDelete is Dog dogToDelete)
+                switch (animalToDelete)
                 {
-                    _mockDatabase.allDogs.Remove(dogToDelete);
-                }
-                else if (animalToDelete is Cat catToDelete)
-                {
-                    _mockDatabase.allCats.Remove(catToDelete);
-                }
-                else if (animalToDelete is Bird birdToDelete)
-                {
-                    _mockDatabase.allBirds.Remove(birdToDelete);
+                    case Dog dogToDelete when _mockDatabase.allDogs.Contains(dogToDelete): _mockDatabase.allDogs.Remove(dogToDelete); break;
+                    case Cat catToDelete when _mockDatabase.allCats.Contains(catToDelete): _mockDatabase.allCats.Remove(catToDelete); break;
+                    case Bird birdToDelete when _mockDatabase.allBirds.Contains(birdToDelete): _mockDatabase.allBirds.Remove(birdToDelete); break;
                 }
             }
 

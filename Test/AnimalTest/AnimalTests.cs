@@ -2,6 +2,7 @@
 using Infrastructure.Database;
 using Application.Commands.Animals.CreateAnimal;
 using Application.Commands.Animals.DeleteAnimal;
+using Application.Commands.Animals.UpdateAnimal;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Application.Dtos;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
 using Domain.Models;
+
 
 [assembly: InternalsVisibleTo("AnimalTests.cs")]
 
@@ -21,6 +23,7 @@ namespace Test.AnimalTest
     {
         private CreateAnimalCommandHandler _createHandler;
         private DeleteAnimalCommandHandler _deleteHandler;
+        private UpdateAnimalByIdCommandHandler _updateHandler;
         private GetAnimalByIdQueryHandler _getByIdHandler;
         private MockDatabase _mockDatabase;
 
@@ -30,6 +33,7 @@ namespace Test.AnimalTest
             // Initialize handlers and mock database before each test
             _mockDatabase = new MockDatabase();
             _createHandler = new CreateAnimalCommandHandler(_mockDatabase);
+            _updateHandler = new UpdateAnimalByIdCommandHandler(_mockDatabase);
             _deleteHandler = new DeleteAnimalCommandHandler(_mockDatabase);
             _getByIdHandler = new GetAnimalByIdQueryHandler(_mockDatabase);
         }
@@ -48,7 +52,21 @@ namespace Test.AnimalTest
             Assert.NotNull(createdAnimal);
             Assert.AreEqual(newAnimalDto.Name, createdAnimal.Name);
         }
+        [Test]
+        public async Task UpdateAnimal_ValidData_ReturnsUpdatedAnimal()
+        {
+            // Arrange
+            var animalIdToUpdate = new Guid("12345678-1234-5678-1234-567812345677");
+            var updatedAnimalDto = new AnimalDto { Name = "UpdatedAnimal" };
+            var updateCommand = new UpdateAnimalByIdCommand(updatedAnimalDto, animalIdToUpdate);
 
+            // Act
+            var updatedAnimal = await _updateHandler.Handle(updateCommand, CancellationToken.None);
+
+            // Assert
+            Assert.NotNull(updatedAnimal);
+            Assert.AreEqual(updatedAnimalDto.Name, updatedAnimal.Name);
+        }
         [Test]
         public async Task DeleteAnimal_ValidId_RemovesAnimalFromDatabase()
         {

@@ -33,17 +33,9 @@ namespace Application.Commands.Animals.UpdateAnimal
                     // Remove the old animal from the list corresponding to its old type
                     switch (animalToUpdate)
                     {
-                        case Dog oldDog when _mockDatabase.allDogs.Contains(oldDog):
-                            _mockDatabase.allDogs.Remove(oldDog);
-                            break;
-
-                        case Cat oldCat when _mockDatabase.allCats.Contains(oldCat):
-                            _mockDatabase.allCats.Remove(oldCat);
-                            break;
-
-                        case Bird oldBird when _mockDatabase.allBirds.Contains(oldBird):
-                            _mockDatabase.allBirds.Remove(oldBird);
-                            break;
+                        case Dog oldDog when _mockDatabase.allDogs.Contains(oldDog): _mockDatabase.allDogs.Remove(oldDog); break;
+                        case Cat oldCat when _mockDatabase.allCats.Contains(oldCat): _mockDatabase.allCats.Remove(oldCat); break;
+                        case Bird oldBird when _mockDatabase.allBirds.Contains(oldBird): _mockDatabase.allBirds.Remove(oldBird); break;
                     }
 
                     // Create a new instance of the appropriate derived class based on the updated type
@@ -62,17 +54,9 @@ namespace Application.Commands.Animals.UpdateAnimal
                     // Add the updated animal to the new list
                     switch (updatedAnimal)
                     {
-                        case Dog dog:
-                            _mockDatabase.allDogs.Add(dog);
-                            break;
-
-                        case Cat cat:
-                            _mockDatabase.allCats.Add(cat);
-                            break;
-
-                        case Bird bird:
-                            _mockDatabase.allBirds.Add(bird);
-                            break;
+                        case Dog dog: _mockDatabase.allDogs.Add(dog); break;
+                        case Cat cat: _mockDatabase.allCats.Add(cat); break;
+                        case Bird bird: _mockDatabase.allBirds.Add(bird); break;
                     }
 
                     // Remove the old animal from the combined list

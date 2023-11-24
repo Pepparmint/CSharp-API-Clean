@@ -37,9 +37,7 @@ namespace Infrastructure.Database
         private static List<Dog> allDogsFromMockDatabase = new()
         {
             new Dog{animalId = Guid.NewGuid(), Name = "Sussy Borkdog"},
-            new Dog{animalId = Guid.NewGuid(), Name = "BorkLady"},
-            new Dog{animalId = new Guid("12345678-1234-5678-1234-567812345678"), Name = "AnimalTestDelete"},
-            new Dog{animalId = new Guid("12345678-1234-5678-1234-567812345679"), Name = "AnimalTestReturnCorrectAnimal"}
+            new Dog{animalId = Guid.NewGuid(), Name = "BorkLady"}
         };
         public List<Cat> allCats
         {
@@ -62,7 +60,10 @@ namespace Infrastructure.Database
         private static List<Bird> allBirdsFromMockDatabase = new()
         {
             new Bird{animalId = Guid.NewGuid(), Name = "Phoenxi"},
-            new Bird{animalId = Guid.NewGuid(), Name = "Bojan"}
+            new Bird{animalId = Guid.NewGuid(), Name = "Bojan"},
+            new Bird{animalId = new Guid("12345678-1234-5678-1234-567812345678"), Name = "AnimalTestDelete"},
+            new Bird{animalId = new Guid("12345678-1234-5678-1234-567812345679"), Name = "AnimalTestReturnCorrectAnimal"},
+            new Bird{animalId = new Guid("12345678-1234-5678-1234-567812345677"), Name = "AnimalTestUpdate"}
         };
     }
 }

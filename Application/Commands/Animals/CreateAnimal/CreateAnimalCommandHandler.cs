@@ -21,19 +21,10 @@ namespace Application.Commands.Animals.CreateAnimal
             Animal newAnimal;
             switch (request.NewAnimal.Type.ToLower())
             {
-                case "dog":
-                    newAnimal = new Dog();
-                    break;
-                case "cat":
-                    newAnimal = new Cat();
-                    break;
-                case "bird":
-                    newAnimal = new Bird();
-                    break;
-                default:
-                    // Handle unknown types or provide a default type
-                    newAnimal = new Animal();
-                    break;
+                case "dog": newAnimal = new Dog(); break;
+                case "cat": newAnimal = new Cat(); break;
+                case "bird": newAnimal = new Bird(); break;
+                default: newAnimal = new Animal(); break;
             }
 
             // Set common properties
@@ -41,18 +32,9 @@ namespace Application.Commands.Animals.CreateAnimal
             newAnimal.Name = request.NewAnimal.Name;
 
             // Add the new animal to the appropriate list in the mock database
-            if (newAnimal is Dog dog)
-            {
-                _mockDatabase.allDogs.Add(dog);
-            }
-            else if (newAnimal is Cat cat)
-            {
-                _mockDatabase.allCats.Add(cat);
-            }
-            else if (newAnimal is Bird bird)
-            {
-                _mockDatabase.allBirds.Add(bird);
-            }
+            if (newAnimal is Dog dog) { _mockDatabase.allDogs.Add(dog);}
+            else if (newAnimal is Cat cat) { _mockDatabase.allCats.Add(cat);}
+            else if (newAnimal is Bird bird) { _mockDatabase.allBirds.Add(bird);}
 
             return Task.FromResult(newAnimal);
         }
