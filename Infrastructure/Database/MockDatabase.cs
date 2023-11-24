@@ -38,7 +38,8 @@ namespace Infrastructure.Database
         {
             new Dog{animalId = Guid.NewGuid(), Name = "Sussy Borkdog"},
             new Dog{animalId = Guid.NewGuid(), Name = "BorkLady"},
-            new Dog { animalId = new Guid("12345678-1234-5678-1234-567812345678"), Name = "AnimalTest"}
+            new Dog { animalId = new Guid("12345678-1234-5678-1234-567812345678"), Name = "AnimalTestDelete"},
+            new Dog { animalId = new Guid("12345678-1234-5678-1234-567812345679"), Name = "AnimalTestReturnCorrectAnimal"}
         };
         public List<Cat> allCats
         {

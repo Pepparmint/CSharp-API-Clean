@@ -9,6 +9,7 @@ using Application.Queries.Animals.GetAnimalById;
 using Application.Dtos;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
+using Domain.Models;
 
 [assembly: InternalsVisibleTo("AnimalTests.cs")]
 
@@ -61,6 +62,22 @@ namespace Test.AnimalTest
 
             // Assert
             Assert.Null(animalAfterDeletion);
+        }
+
+        [Test]
+        public async Task Handle_ValidId_ReturnsCorrectAnimal()
+        {
+            // Arrange
+            var animalId = new Guid("12345678-1234-5678-1234-567812345679");
+
+            var query = new GetAnimalByIdQuery(animalId);
+
+            // Act
+            var result = await _getByIdHandler.Handle(query, CancellationToken.None);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.That(result.animalId, Is.EqualTo(animalId));
         }
         [Test]
         public async Task Handle_InvalidId_ReturnsNull()
