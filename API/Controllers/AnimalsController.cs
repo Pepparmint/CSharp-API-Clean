@@ -1,10 +1,12 @@
-﻿using Application.Commands.Animals.CreateAnimal;
+﻿using API.Auth;
+using Application.Commands.Animals.CreateAnimal;
 using Application.Commands.Animals.DeleteAnimal;
 using Application.Commands.Animals.UpdateAnimal;
 using Application.Dtos;
 using Application.Queries.Animals.GetAll;
 using Application.Queries.Animals.GetAnimalById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -50,6 +52,7 @@ namespace API.Controllers
         // PUT - Denna uppdaterar Namn via ID
         [HttpPut]
         [Route("updateAnimal/{animalId}")]
+        // [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateAnimal([FromBody] AnimalDto updatedAnimal, Guid animalId)
         {
             return Ok(await _mediator.Send(new UpdateAnimalByIdCommand(updatedAnimal, animalId)));
@@ -58,6 +61,7 @@ namespace API.Controllers
         // DELETE - Denna tar bort Animal via ID
         [HttpDelete]
         [Route("deleteAnimal/{animalId}")]
+        // [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> DeleteAnimal(Guid animalId)
         {
             await _mediator.Send(new DeleteAnimalCommand(animalId));

@@ -7,11 +7,12 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Queries.Animals.GetAnimalById;
+using Application.Queries.Animals.GetAll;
 using Application.Dtos;
 using System.Runtime.CompilerServices;
 using System.Reflection.Metadata;
 using Domain.Models;
-using Application.Queries.Animals.GetAll;
+
 
 
 [assembly: InternalsVisibleTo("AnimalTests.cs")]
