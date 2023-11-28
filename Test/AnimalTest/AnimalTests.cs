@@ -19,7 +19,7 @@ using Domain.Models;
 
 namespace Test.AnimalTest
 {
-    
+
     [TestFixture]
     public class AnimalTests
     {
@@ -46,7 +46,7 @@ namespace Test.AnimalTest
         public async Task CreateAnimal_ValidData_ReturnsCreatedAnimal()
         {
             // Arrange
-            var newAnimalDto = new AnimalDto { Name = "NewAnimal" };
+            var newAnimalDto = new AnimalDto { Name = "NewAnimal", Type = "Dog" };
             var createCommand = new CreateAnimalCommand(newAnimalDto);
 
             // Act
@@ -55,13 +55,22 @@ namespace Test.AnimalTest
             // Assert
             Assert.NotNull(createdAnimal);
             Assert.AreEqual(newAnimalDto.Name, createdAnimal.Name);
+            Assert.AreEqual(newAnimalDto.Type.ToLower(), createdAnimal.Type.ToLower());
+
+            switch (createdAnimal)
+            {
+                case Dog dog: Assert.Contains(dog, _mockDatabase.allDogs); break;
+                case Cat cat: Assert.Contains(cat, _mockDatabase.allCats); break;
+                case Bird bird: Assert.Contains(bird, _mockDatabase.allBirds); break;
+                default: Assert.Fail("Unexpected animal type."); break;
+            }
         }
         [Test]
         public async Task UpdateAnimal_ValidData_ReturnsUpdatedAnimal()
         {
             // Arrange
             var animalIdToUpdate = new Guid("12345678-1234-5678-1234-567812345677");
-            var updatedAnimalDto = new AnimalDto { Name = "UpdatedAnimal" };
+            var updatedAnimalDto = new AnimalDto { Name = "UpdatedAnimal", Type = "Cat" };
             var updateCommand = new UpdateAnimalByIdCommand(updatedAnimalDto, animalIdToUpdate);
 
             // Act
@@ -70,7 +79,12 @@ namespace Test.AnimalTest
             // Assert
             Assert.NotNull(updatedAnimal);
             Assert.AreEqual(updatedAnimalDto.Name, updatedAnimal.Name);
+            Assert.AreEqual(animalIdToUpdate, updatedAnimal.animalId); // Ensure the same ID
+
+            // Ensure that the updated animal is still in the combined list
+            Assert.Contains(updatedAnimal, _mockDatabase.allAnimals);
         }
+
         [Test]
         public async Task DeleteAnimal_ValidId_RemovesAnimalFromDatabase()
         {
