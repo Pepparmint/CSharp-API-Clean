@@ -77,7 +77,6 @@ namespace API.Controllers
             }
             catch (Exception)
             {
-                // Handle other exceptions
                 return StatusCode(500, new { Message = "An error occurred while processing your request." });
             }
         }
