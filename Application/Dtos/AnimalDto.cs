@@ -1,16 +1,15 @@
 ﻿using Domain.Models;
-using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Queries.Dogs.GetAll
+namespace Application.Dtos
 {
-    public class GetAllDogsQuery : IRequest<List<Dog>>
+    public class AnimalDto
     {
-
+        public string? Name { get; set; }
+        public string? Type { get; set; }
     }
 }

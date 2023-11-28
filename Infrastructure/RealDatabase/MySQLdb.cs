@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Dtos
+namespace Infrastructure.RealDatabase
 {
-    public class DogDto
+    internal class MySQLdb
     {
-        public string Name { get; set; } = string.Empty;
     }
 }
