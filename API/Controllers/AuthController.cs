@@ -1,5 +1,5 @@
-﻿using API;
-using Application.Dtos;
+﻿using Application.Dtos;
+using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,65 +11,65 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+namespace API.Controllers
 {
-    private readonly IConfiguration _configuration;
-    private readonly JwtSettings _jwtSettings;
-
-    public AuthController(IConfiguration configuration, IOptions<JwtSettings> jwtSettings)
+    [ApiController]
+    [Route("api/[controller]")]
+    public class AuthController : ControllerBase
     {
-        _configuration = configuration;
-        _jwtSettings = jwtSettings.Value;
-    }
+        private readonly IConfiguration _configuration;
 
-    [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequestDto loginRequest)
-    {
-        // Validate user credentials
-        bool isValidUser = AuthenticateUser(loginRequest.Username!, loginRequest.Password!);
-
-        if (!isValidUser)
+        public AuthController(IConfiguration configuration)
         {
-            return Unauthorized("Invalid username or password");
+            _configuration = configuration;
         }
 
-        // Generate JWT token for the authenticated user
-        var token = GenerateJwtToken();
-
-        // Return the token to the client
-        return Ok(new { Token = token });
-    }
-
-    private bool AuthenticateUser(string username, string password)
-    {
-        if (username == null || password == null)
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
-            return false;
+            // Validate user credentials
+            bool isValidUser = AuthenticateUser(loginRequest.Username!, loginRequest.Password!);
+
+            if (!isValidUser)
+            {
+                return Unauthorized("Invalid username or password");
+            }
+
+            // Generate JWT token for the authenticated user
+            var token = GenerateJwtToken();
+
+            // Return the token to the client
+            return Ok(new { Token = token });
         }
-        return (username == "string" && password == "string"); // "User" / "PASSWORD"
-    }
 
-    private string GenerateJwtToken()
-    {
-        string secretKey = _configuration["JwtSettings:SecretKey"]!;
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+        private bool AuthenticateUser(string username, string password)
+        {
+            if (username == null || password == null)
+            {
+                return false;
+            }
+            return username == "string" && password == "string";
+        }
 
-        var claims = new List<Claim>
+        private string GenerateJwtToken()
+        {
+            string secretKey = _configuration["JwtSettings:SecretKey"]!;
+
+            var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, "Its Joeover"),
             new Claim(ClaimTypes.Role, "Admin"),
-            new Claim(ClaimTypes.Role, "User"),
         };
 
-        var token = new JwtSecurityToken(
-            claims: claims,
-            expires: DateTime.UtcNow.AddHours(1),
-            signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-        );
+            var key = Encoding.ASCII.GetBytes(secretKey);
+            var token = new JwtSecurityToken(
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(1),
+                signingCredentials: new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+            );
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        return tokenHandler.WriteToken(token);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            return tokenHandler.WriteToken(token);
+        }
     }
 }

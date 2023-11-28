@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Application.Dtos
 {
     public class AnimalDto
     {
-        public string Name { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
+        public string? Name { get; set; }
+        public string? Type { get; set; }
     }
 }
