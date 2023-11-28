@@ -26,7 +26,6 @@ namespace API.Controllers
         // GET - Denna endpoint hämtar alla djur från MockDatabase
         [HttpGet]
         [Route("getAllAnimals")]
-        [Authorize]
         public async Task<IActionResult> GetAllAnimals()
         {
             return Ok(await _mediator.Send(new GetAllAnimalsQuery()));
