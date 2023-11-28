@@ -13,7 +13,7 @@ namespace Infrastructure.Database
         {
             get
             {
-                // Combine cats and birds into a single list
+                // Combine lists into a single list
                 List<Animal> combinedList = new List<Animal>();
                 combinedList.AddRange(allDogsFromMockDatabase);
                 combinedList.AddRange(allCatsFromMockDatabase);
@@ -22,7 +22,7 @@ namespace Infrastructure.Database
             }
             set
             {
-                // Split the combined list into cats and birds
+                // Split the combined list into single lists
                 allDogsFromMockDatabase = value.OfType<Dog>().ToList();
                 allCatsFromMockDatabase = value.OfType<Cat>().ToList();
                 allBirdsFromMockDatabase = value.OfType<Bird>().ToList();

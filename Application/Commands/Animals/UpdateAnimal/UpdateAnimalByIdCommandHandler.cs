@@ -20,7 +20,7 @@ namespace Application.Commands.Animals.UpdateAnimal
 
         public Task<Animal> Handle(UpdateAnimalByIdCommand request, CancellationToken cancellationToken)
         {
-            Animal animalToUpdate = _mockDatabase.allAnimals.FirstOrDefault(animal => animal.animalId == request.AnimalId);
+            Animal animalToUpdate = _mockDatabase.allAnimals.FirstOrDefault(animal => animal.animalId == request.AnimalId)!;
 
             if (animalToUpdate == null)
             {
@@ -51,11 +51,17 @@ namespace Application.Commands.Animals.UpdateAnimal
         private void RemoveAnimalFromList(Animal animal)
         {
             if (animal is Dog dog && _mockDatabase.allDogs.Contains(dog))
-            { _mockDatabase.allDogs.Remove(dog); }
+            {
+                _mockDatabase.allDogs.Remove(dog);
+            }
             else if (animal is Cat cat && _mockDatabase.allCats.Contains(cat))
-            { _mockDatabase.allCats.Remove(cat); }
+            {
+                _mockDatabase.allCats.Remove(cat);
+            }
             else if (animal is Bird bird && _mockDatabase.allBirds.Contains(bird))
-            { _mockDatabase.allBirds.Remove(bird); }
+            {
+                _mockDatabase.allBirds.Remove(bird);
+            }
         }
 
         private void AddAnimalToList(Animal animal)

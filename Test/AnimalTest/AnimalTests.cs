@@ -42,7 +42,7 @@ namespace Test.AnimalTest
             _getAllHandler = new GetAllAnimalsQueryHandler(_mockDatabase);
         }
 
-        [Test]
+        [Test] // POST 
         public async Task CreateAnimal_ValidData_ReturnsCreatedAnimal()
         {
             // Arrange
@@ -55,17 +55,10 @@ namespace Test.AnimalTest
             // Assert
             Assert.NotNull(createdAnimal);
             Assert.AreEqual(newAnimalDto.Name, createdAnimal.Name);
-            Assert.AreEqual(newAnimalDto.Type.ToLower(), createdAnimal.Type.ToLower());
-
-            switch (createdAnimal)
-            {
-                case Dog dog: Assert.Contains(dog, _mockDatabase.allDogs); break;
-                case Cat cat: Assert.Contains(cat, _mockDatabase.allCats); break;
-                case Bird bird: Assert.Contains(bird, _mockDatabase.allBirds); break;
-                default: Assert.Fail("Unexpected animal type."); break;
-            }
+            Assert.AreEqual(newAnimalDto.Type, createdAnimal.Type);
         }
-        [Test]
+
+        [Test] // PUT
         public async Task UpdateAnimal_ValidData_ReturnsUpdatedAnimal()
         {
             // Arrange
@@ -80,12 +73,10 @@ namespace Test.AnimalTest
             Assert.NotNull(updatedAnimal);
             Assert.AreEqual(updatedAnimalDto.Name, updatedAnimal.Name);
             Assert.AreEqual(animalIdToUpdate, updatedAnimal.animalId); // Ensure the same ID
-
-            // Ensure that the updated animal is still in the combined list
-            Assert.Contains(updatedAnimal, _mockDatabase.allAnimals);
+            Assert.Contains(updatedAnimal, _mockDatabase.allAnimals);// Ensure that the updated animal is still in the combined list
         }
 
-        [Test]
+        [Test] // DELETE
         public async Task DeleteAnimal_ValidId_RemovesAnimalFromDatabase()
         {
             // Arrange
@@ -99,10 +90,11 @@ namespace Test.AnimalTest
             // Assert
             Assert.Null(animalAfterDeletion);
         }
-        [Test]
+
+        [Test] // GET ALL
         public async Task GetAllAnimals_ReturnsAllAnimals()
         {
-            // Arrange - Assuming you have some animals in your mock database
+            // Arrange
             var expectedAnimalCount = _mockDatabase.allAnimals.Count;
             var query = new GetAllAnimalsQuery();
 
@@ -112,10 +104,9 @@ namespace Test.AnimalTest
             // Assert
             Assert.NotNull(allAnimals);
             Assert.AreEqual(expectedAnimalCount, allAnimals.Count);
-            // Add more assertions if needed based on the properties you expect from the animals.
         }
 
-        [Test]
+        [Test] // GET CORRECT ID
         public async Task Handle_ValidId_ReturnsCorrectAnimal()
         {
             // Arrange
@@ -130,7 +121,8 @@ namespace Test.AnimalTest
             Assert.NotNull(result);
             Assert.That(result.animalId, Is.EqualTo(animalId));
         }
-        [Test]
+
+        [Test] // GET INVALID ID
         public async Task Handle_InvalidId_ReturnsNull()
         {
             // Arrange

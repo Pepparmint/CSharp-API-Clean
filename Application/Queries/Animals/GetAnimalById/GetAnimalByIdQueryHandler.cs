@@ -23,10 +23,5 @@ namespace Application.Queries.Animals.GetAnimalById
             Animal findAnimal = _mockDatabase.allAnimals.Where(Animal => Animal.animalId == request.Id).FirstOrDefault()!;
             return Task.FromResult(findAnimal);
         }
-
-        public static implicit operator GetAnimalByIdQueryHandler(GetAllAnimalsQueryHandler v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
