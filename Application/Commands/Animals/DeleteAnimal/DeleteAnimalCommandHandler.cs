@@ -32,7 +32,6 @@ namespace Application.Commands.Animals.DeleteAnimal
                     case Bird birdToDelete when _mockDatabase.allBirds.Contains(birdToDelete): _mockDatabase.allBirds.Remove(birdToDelete); break;
                 }
             }
-
             return Task.FromResult(Unit.Value);
         }
     }

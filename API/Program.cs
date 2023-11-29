@@ -8,8 +8,34 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
+builder.Services.AddAuthorization();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.Authority = "https://localhost:7230";
+    // Configure JWT Bearer Authentication
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        // Specify token validation parameters (issuer, audience, etc.)
+        ValidateIssuer = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = false,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
+            builder.Configuration["JwtSettings:SecretKey"]!)),
+    };
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanApiTestsOnSwagger", Version = "v1" });
@@ -40,30 +66,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 
     options.OperationFilter<AuthorizeCheckOperationFilter>();
-});
-
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure();
-
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.Authority = "https://localhost:7230";
-    // Configure JWT Bearer Authentication
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        // Specify token validation parameters (issuer, audience, etc.)
-        ValidateIssuer = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        ValidateAudience = false,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(
-            builder.Configuration["JwtSettings:SecretKey"]!)),
-    };
 });
 
 var app = builder.Build();

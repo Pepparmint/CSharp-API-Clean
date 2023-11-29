@@ -24,10 +24,10 @@ namespace API.Controllers
             _configuration = configuration;
         }
 
+        // LOGIN
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
-            // Validate user credentials
             bool isValidUser = AuthenticateUser(loginRequest.Username!, loginRequest.Password!);
 
             if (!isValidUser)
@@ -35,10 +35,8 @@ namespace API.Controllers
                 return Unauthorized("Invalid username or password");
             }
 
-            // Generate JWT token for the authenticated user
             var token = GenerateJwtToken();
 
-            // Return the token to the client
             return Ok(new { Token = token });
         }
 
