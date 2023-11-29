@@ -18,7 +18,7 @@ namespace API.Controllers
             _configuration = configuration;
         }
 
-        // LOGIN
+        // LOGINr
         [HttpPost("login/(username:string pass:string)")]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
