@@ -1,17 +1,11 @@
-﻿using NUnit.Framework;
-using Infrastructure.Database;
+﻿using Infrastructure.Database;
 using Application.Commands.Animals.CreateAnimal;
 using Application.Commands.Animals.DeleteAnimal;
 using Application.Commands.Animals.UpdateAnimal;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Application.Queries.Animals.GetAnimalById;
 using Application.Queries.Animals.GetAll;
 using Application.Dtos;
 using System.Runtime.CompilerServices;
-using System.Reflection.Metadata;
-using Domain.Models;
 
 
 
@@ -72,7 +66,7 @@ namespace Test.AnimalTest
             // Assert
             Assert.NotNull(updatedAnimal);
             Assert.AreEqual(updatedAnimalDto.Name, updatedAnimal.Name);
-            Assert.AreEqual(animalIdToUpdate, updatedAnimal.animalId); // Ensure the same ID
+            Assert.AreEqual(updatedAnimalDto.Type, updatedAnimal.Type);
             Assert.Contains(updatedAnimal, _mockDatabase.allAnimals);// Ensure that the updated animal is still in the combined list
         }
 

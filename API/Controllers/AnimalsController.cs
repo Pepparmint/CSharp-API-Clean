@@ -4,7 +4,6 @@ using Application.Commands.Animals.UpdateAnimal;
 using Application.Dtos;
 using Application.Queries.Animals.GetAll;
 using Application.Queries.Animals.GetAnimalById;
-using Domain.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
