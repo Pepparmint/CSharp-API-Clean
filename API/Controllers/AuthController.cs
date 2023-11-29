@@ -1,12 +1,6 @@
-﻿using Application.Dtos;
-using Domain.Models;
-using Microsoft.AspNetCore.Authorization;
+﻿using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
