@@ -10,7 +10,7 @@ namespace Domain.Models
     {
         public override string Type => "Cat";
         public override string Ability => "This animal has a mysterious and enchanting gaze.";
-        public override bool NineLives { get; set; } = true;
+        public override bool LikesToPlay { get; set; } = true;
         public override int HP { get; set; } = 20; // Health Points
         public override int Defense { get; set; } = 5;
         public override int Attack { get; set; } = 25;

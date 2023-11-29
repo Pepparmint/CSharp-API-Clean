@@ -19,7 +19,7 @@ namespace API.Controllers
         }
 
         // LOGIN
-        [HttpPost("login")]
+        [HttpPost("login/(username:string pass:string)")]
         public IActionResult Login([FromBody] LoginRequest loginRequest)
         {
             bool isValidUser = AuthenticateUser(loginRequest.Username!, loginRequest.Password!);
