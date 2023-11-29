@@ -22,22 +22,19 @@ namespace Application.Commands.Animals.UpdateAnimal
                 return Task.FromResult<Animal>(null!);
             }
 
-            // Update the name of the animal
+            // Update the name, type and if it can play
             animalToUpdate.Name = string.IsNullOrEmpty(request.UpdatedAnimal.Name) ? animalToUpdate.Name : request.UpdatedAnimal.Name;
+            animalToUpdate.CanFly = request.UpdatedAnimal.CanFly;
+            animalToUpdate.LikesToPlay = request.UpdatedAnimal.LikesToPlay;
 
             // Check if the type has changed
             if (!string.Equals(animalToUpdate.Type, request.UpdatedAnimal.Type, StringComparison.OrdinalIgnoreCase))
             {
                 RemoveAnimalFromList(animalToUpdate);
-
                 Animal updatedAnimal = CreateUpdatedAnimal(request, animalToUpdate);
-
                 updatedAnimal.animalId = animalToUpdate.animalId; // Keep the same ID
-
                 AddAnimalToList(updatedAnimal);
-
                 _mockDatabase.allAnimals.Remove(animalToUpdate);
-
                 return Task.FromResult(updatedAnimal);
             }
             return Task.FromResult(animalToUpdate);
@@ -45,17 +42,17 @@ namespace Application.Commands.Animals.UpdateAnimal
 
         private void RemoveAnimalFromList(Animal animal)
         {
-            if (animal is Dog dog && _mockDatabase.allDogs.Contains(dog))
+            switch (animal)
             {
-                _mockDatabase.allDogs.Remove(dog);
-            }
-            else if (animal is Cat cat && _mockDatabase.allCats.Contains(cat))
-            {
-                _mockDatabase.allCats.Remove(cat);
-            }
-            else if (animal is Bird bird && _mockDatabase.allBirds.Contains(bird))
-            {
-                _mockDatabase.allBirds.Remove(bird);
+                case Dog dog when _mockDatabase.allDogs.Contains(dog):
+                    _mockDatabase.allDogs.Remove(dog);
+                    break;
+                case Cat cat when _mockDatabase.allCats.Contains(cat):
+                    _mockDatabase.allCats.Remove(cat);
+                    break;
+                case Bird bird when _mockDatabase.allBirds.Contains(bird):
+                    _mockDatabase.allBirds.Remove(bird);
+                    break;
             }
         }
 
