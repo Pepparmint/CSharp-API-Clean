@@ -1,11 +1,6 @@
 ﻿using Domain.Models;
 using Infrastructure.Database;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Commands.Animals.UpdateAnimal
 {
@@ -28,7 +23,7 @@ namespace Application.Commands.Animals.UpdateAnimal
             }
 
             // Update the name of the animal
-            animalToUpdate.Name = request.UpdatedAnimal.Name;
+            animalToUpdate.Name = string.IsNullOrEmpty(request.UpdatedAnimal.Name) ? animalToUpdate.Name : request.UpdatedAnimal.Name;
 
             // Check if the type has changed
             if (!string.Equals(animalToUpdate.Type, request.UpdatedAnimal.Type, StringComparison.OrdinalIgnoreCase))
@@ -76,7 +71,10 @@ namespace Application.Commands.Animals.UpdateAnimal
 
         private Animal CreateUpdatedAnimal(UpdateAnimalByIdCommand request, Animal existingAnimal)
         {
-            Animal updatedAnimal = request.UpdatedAnimal.Type.ToLower() switch
+            // Check if Type is null or empty, use existing Type in that case
+            string? updatedType = string.IsNullOrEmpty(request.UpdatedAnimal.Type) ? existingAnimal.Type : request.UpdatedAnimal.Type;
+
+            Animal updatedAnimal = updatedType?.ToLower() switch
             {
                 "dog" => new Dog(),
                 "cat" => new Cat(),
@@ -85,7 +83,7 @@ namespace Application.Commands.Animals.UpdateAnimal
             };
 
             // Set common properties
-            updatedAnimal.Name = request.UpdatedAnimal.Name;
+            updatedAnimal.Name = string.IsNullOrEmpty(request.UpdatedAnimal.Name) ? existingAnimal.Name : request.UpdatedAnimal.Name;
 
             return updatedAnimal;
         }
